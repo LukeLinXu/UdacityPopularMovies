@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">UdacityPopularMovies</string>
+    <string name="app_name">PopularMovie</string>
+    <string name="redo">We got network problem, please click to refresh.</string>
+    <string name="sort_title">sort</string>
+    <string name="pick_sorting_option">Sorting Options</string>
+    <string name="fragment_movie_detail_status">Status: %1$s</string>
+    <string name="fragment_movie_detail_release_date">Release Date: %1$s</string>
+    <string name="fragment_movie_detail_vote_average">Vote Average: %1$s/10</string>
+    <string name="fragment_movie_detail_popularity">Popularity: %1$s</string>
+
 </resources>
