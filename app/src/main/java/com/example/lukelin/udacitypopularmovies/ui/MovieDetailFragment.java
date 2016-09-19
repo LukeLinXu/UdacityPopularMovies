@@ -1,6 +1,5 @@
 package com.example.lukelin.udacitypopularmovies.ui;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -105,8 +104,6 @@ public class MovieDetailFragment extends ClickToRefreshFragmentBase{
 
     private void insert(Movie movie){
         Realm realm = Realm.getDefaultInstance();
-        RealmResults<Movie> all = realm.where(Movie.class).findAll();
-        Log.d("Luke", "onResponse: "+ all.size());
         realm.beginTransaction();
         realm.copyToRealmOrUpdate(movie);
         realm.commitTransaction();

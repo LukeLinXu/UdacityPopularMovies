@@ -21,4 +21,10 @@ public interface MovieAPI {
 
     @GET("/3/movie/{id}")
     Call<Movie> getMovieById(@Path("id") String id, @Query("api_key") String apikey);
+
+    @GET("/3/movie/{id}/videos")
+    Call<Movie> getMovieVideosById(@Path("id") String id, @Query("api_key") String apikey);
+
+    @GET("/3/movie/{id}/reviews")
+    Call<Movie> getMovieReviewsById(@Path("id") String id, @Query("api_key") String apikey);
 }
