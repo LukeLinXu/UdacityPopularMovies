@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static final int SORT_POPULAR = 0;
     public static final int SORT_TOPRATED = 1;
+    public static final int SORT_FAVORITE = 2;
     private int currentSortOption = SORT_POPULAR;
     private MovieListFragment movieListFragment;
 

@@ -7,5 +7,7 @@
     <string name="fragment_movie_detail_release_date">Release Date: %1$s</string>
     <string name="fragment_movie_detail_vote_average">Vote Average: %1$s/10</string>
     <string name="fragment_movie_detail_popularity">Popularity: %1$s</string>
+    <string name="fragment_movie_detail_favorite">Add to Favorite List!</string>
+    <string name="fragment_movie_detail_unfavorite">Remove from Favorite List!</string>
 
 </resources>

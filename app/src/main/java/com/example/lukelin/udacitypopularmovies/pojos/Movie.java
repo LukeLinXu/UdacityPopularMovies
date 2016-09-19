@@ -1,14 +1,17 @@
 package com.example.lukelin.udacitypopularmovies.pojos;
 
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
 /**
  * Created by lukelin on 2016-09-15.
  */
-public class Movie {
+public class Movie extends RealmObject{
     private String poster_path;
     private boolean adult;
     private String overview;
     private String release_date;
-    private int[] genre_ids;
+    @PrimaryKey
     private String id;
     private String original_title;
     private String original_language;
@@ -35,10 +38,6 @@ public class Movie {
 
     public String getRelease_date() {
         return release_date;
-    }
-
-    public int[] getGenre_ids() {
-        return genre_ids;
     }
 
     public String getId() {
