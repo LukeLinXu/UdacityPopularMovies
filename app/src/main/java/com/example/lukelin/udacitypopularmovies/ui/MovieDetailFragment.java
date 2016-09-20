@@ -1,5 +1,7 @@
 package com.example.lukelin.udacitypopularmovies.ui;
 
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -9,6 +11,8 @@ import com.bumptech.glide.Glide;
 import com.example.lukelin.udacitypopularmovies.Extras;
 import com.example.lukelin.udacitypopularmovies.R;
 import com.example.lukelin.udacitypopularmovies.Utils;
+import com.example.lukelin.udacitypopularmovies.pojos.GetReviewResponse;
+import com.example.lukelin.udacitypopularmovies.pojos.GetVideoResponse;
 import com.example.lukelin.udacitypopularmovies.pojos.Movie;
 import com.example.lukelin.udacitypopularmovies.restfulclient.MovieAPIFactory;
 
@@ -28,6 +32,7 @@ public class MovieDetailFragment extends ClickToRefreshFragmentBase{
     private boolean favoriteStatus = false;
     private TextView title, status, releaseDate, voteAverage, popularity, description;
     private Movie movie;
+    private RecyclerView videos, reviews;
 
     @Override
     protected void initView(View spView) {
@@ -39,6 +44,8 @@ public class MovieDetailFragment extends ClickToRefreshFragmentBase{
         voteAverage = (TextView) spView.findViewById(R.id.fragment_movie_detail_vote_average);
         popularity = (TextView) spView.findViewById(R.id.fragment_movie_detail_popularity);
         description = (TextView) spView.findViewById(R.id.fragment_movie_detail_description);
+        videos = (RecyclerView) spView.findViewById(R.id.fragment_movie_detail_videos);
+        reviews = (RecyclerView) spView.findViewById(R.id.fragment_movie_detail_reviews);
     }
 
     @Override
@@ -59,6 +66,34 @@ public class MovieDetailFragment extends ClickToRefreshFragmentBase{
                     @Override
                     public void onFailure(Call<Movie> call, Throwable t) {
                         subscriber.onError(t);
+                    }
+                });
+
+                Call<GetReviewResponse> getReviewResponseCall = MovieAPIFactory.getMovieAPI().getMovieReviewsById(getArguments().getString(DetailActivity.ID), Extras.API_KEY);
+                getReviewResponseCall.enqueue(new Callback<GetReviewResponse>() {
+                    @Override
+                    public void onResponse(Call<GetReviewResponse> call, Response<GetReviewResponse> response) {
+                        reviews.setLayoutManager(new LinearLayoutManager(getContext()));
+                        reviews.setAdapter(new ReviewListAdapter(getContext(), response.body().getResults()));
+                    }
+
+                    @Override
+                    public void onFailure(Call<GetReviewResponse> call, Throwable t) {
+
+                    }
+                });
+
+                Call<GetVideoResponse> getVideoResponseCall = MovieAPIFactory.getMovieAPI().getMovieVideosById(getArguments().getString(DetailActivity.ID), Extras.API_KEY);
+                getVideoResponseCall.enqueue(new Callback<GetVideoResponse>() {
+                    @Override
+                    public void onResponse(Call<GetVideoResponse> call, Response<GetVideoResponse> response) {
+                        videos.setLayoutManager(new LinearLayoutManager(getContext()));
+                        videos.setAdapter(new VideoListAdapter(getContext(), response.body().getResults()));
+                    }
+
+                    @Override
+                    public void onFailure(Call<GetVideoResponse> call, Throwable t) {
+
                     }
                 });
             }

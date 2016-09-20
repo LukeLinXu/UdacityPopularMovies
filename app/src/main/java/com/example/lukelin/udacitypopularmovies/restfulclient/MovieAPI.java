@@ -1,5 +1,7 @@
 package com.example.lukelin.udacitypopularmovies.restfulclient;
 
+import com.example.lukelin.udacitypopularmovies.pojos.GetReviewResponse;
+import com.example.lukelin.udacitypopularmovies.pojos.GetVideoResponse;
 import com.example.lukelin.udacitypopularmovies.pojos.Movie;
 import com.example.lukelin.udacitypopularmovies.pojos.PopularResult;
 
@@ -23,8 +25,8 @@ public interface MovieAPI {
     Call<Movie> getMovieById(@Path("id") String id, @Query("api_key") String apikey);
 
     @GET("/3/movie/{id}/videos")
-    Call<Movie> getMovieVideosById(@Path("id") String id, @Query("api_key") String apikey);
+    Call<GetVideoResponse> getMovieVideosById(@Path("id") String id, @Query("api_key") String apikey);
 
     @GET("/3/movie/{id}/reviews")
-    Call<Movie> getMovieReviewsById(@Path("id") String id, @Query("api_key") String apikey);
+    Call<GetReviewResponse> getMovieReviewsById(@Path("id") String id, @Query("api_key") String apikey);
 }

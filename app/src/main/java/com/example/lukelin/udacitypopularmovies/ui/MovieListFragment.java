@@ -80,7 +80,7 @@ public class MovieListFragment extends ClickToRefreshFragmentBase{
     protected void refreshUI(RelativeLayout mainContent, Object object) {
         if(!(object instanceof PopularResult)) return;
         PopularResult searchResponse = (PopularResult) object;
-        recyclerView.setAdapter(new SimpleRecyclerViewAdapter(getActivity(), searchResponse.getResults()));
+        recyclerView.setAdapter(new MovieListAdapter(getActivity(), searchResponse.getResults()));
     }
 
     @Override

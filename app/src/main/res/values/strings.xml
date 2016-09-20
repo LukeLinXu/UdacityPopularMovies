@@ -9,5 +9,6 @@
     <string name="fragment_movie_detail_popularity">Popularity: %1$s</string>
     <string name="fragment_movie_detail_favorite">Add to Favorite List!</string>
     <string name="fragment_movie_detail_unfavorite">Remove from Favorite List!</string>
+    <string name="ok">OK</string>
 
 </resources>

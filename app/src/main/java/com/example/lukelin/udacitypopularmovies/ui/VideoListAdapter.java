@@ -1,7 +1,6 @@
 package com.example.lukelin.udacitypopularmovies.ui;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -10,20 +9,20 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.example.lukelin.udacitypopularmovies.R;
-import com.example.lukelin.udacitypopularmovies.pojos.Movie;
+import com.example.lukelin.udacitypopularmovies.Utils;
+import com.example.lukelin.udacitypopularmovies.pojos.Video;
 
 import java.util.List;
 
 /**
  * Created by lukelin on 2016-09-16.
  */
-public class SimpleRecyclerViewAdapter extends RecyclerView.Adapter<SimpleRecyclerViewAdapter.ViewHolder> {
+public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.ViewHolder> {
 
     private final TypedValue mTypedValue = new TypedValue();
     private int mBackground;
-    private List<Movie> mValues;
+    private List<Video> mValues;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -34,13 +33,13 @@ public class SimpleRecyclerViewAdapter extends RecyclerView.Adapter<SimpleRecycl
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mImageView = (ImageView) view.findViewById(R.id.list_item_image);
-            mName = (TextView) view.findViewById(R.id.list_item_title);
+            mImageView = (ImageView) view.findViewById(R.id.video_list_item_image);
+            mName = (TextView) view.findViewById(R.id.video_list_item_title);
         }
 
     }
 
-    public SimpleRecyclerViewAdapter(Context context, List<Movie> items) {
+    public VideoListAdapter(Context context, List<Video> items) {
         context.getTheme().resolveAttribute(R.attr.selectableItemBackground, mTypedValue, true);
         mBackground = mTypedValue.resourceId;
         mValues = items;
@@ -49,28 +48,20 @@ public class SimpleRecyclerViewAdapter extends RecyclerView.Adapter<SimpleRecycl
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.list_item, parent, false);
+                .inflate(R.layout.video_list_item, parent, false);
         view.setBackgroundResource(mBackground);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        holder.mName.setText(mValues.get(position).getTitle());
+        holder.mName.setText(mValues.get(position).getName());
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Context context = v.getContext();
-                Intent intent = new Intent(context, DetailActivity.class);
-                intent.putExtra(DetailActivity.ID, mValues.get(position).getId());
-                intent.putExtra(DetailActivity.TITLE, mValues.get(position).getTitle());
-                context.startActivity(intent);
+                Utils.watchYoutubeVideo(v.getContext(), mValues.get(position).getId());
             }
         });
-        Glide.with(holder.mImageView.getContext())
-                .load(mValues.get(position).getPoster_path())
-                .fitCenter()
-                .into(holder.mImageView);
     }
 
     @Override
