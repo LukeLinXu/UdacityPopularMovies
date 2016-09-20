@@ -17,9 +17,19 @@ import android.widget.Toast;
  */
 public class Utils {
 
-    public static void switchFragment(FragmentManager fragmentManager, Fragment fragment, int fragmentContainerId) {
+    public static void switchFragment(FragmentManager fragmentManager, Fragment fragment, int fragmentContainerId, String tag) {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(fragmentContainerId, fragment, null);
+        fragmentTransaction.replace(fragmentContainerId, fragment, tag);
+        fragmentTransaction.commitAllowingStateLoss();
+    }
+
+    public static void switchFragment(FragmentManager fragmentManager, Fragment fragment, int fragmentContainerId) {
+        switchFragment(fragmentManager, fragment, fragmentContainerId, null);
+    }
+
+    public static void hideFragment(FragmentManager fragmentManager, Fragment fragment) {
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.hide(fragment);
         fragmentTransaction.commitAllowingStateLoss();
     }
 

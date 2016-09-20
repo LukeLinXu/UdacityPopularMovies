@@ -26,6 +26,7 @@ import rx.Subscriber;
 public class MovieListFragment extends ClickToRefreshFragmentBase{
     private RecyclerView recyclerView;
     private int sortOption = MainActivity.SORT_POPULAR;
+    private MovieListAdapter movieListAdapter;
 
     @Override
     protected void initView(View spView) {
@@ -36,7 +37,7 @@ public class MovieListFragment extends ClickToRefreshFragmentBase{
     @Override
     public void onResume() {
         super.onResume();
-        refresh();
+//        refresh();
     }
 
     @Override
@@ -80,7 +81,16 @@ public class MovieListFragment extends ClickToRefreshFragmentBase{
     protected void refreshUI(RelativeLayout mainContent, Object object) {
         if(!(object instanceof PopularResult)) return;
         PopularResult searchResponse = (PopularResult) object;
-        recyclerView.setAdapter(new MovieListAdapter(getActivity(), searchResponse.getResults()));
+        movieListAdapter = new MovieListAdapter(getActivity(), searchResponse.getResults(), (MainActivity)getActivity());
+        recyclerView.setAdapter(movieListAdapter);
+        MainActivity activity = (MainActivity) getActivity();
+        if(activity.isLandscape()){
+            if(searchResponse.getResults().size() == 0){
+                activity.onItemSelected(null);
+            }else {
+                activity.onItemSelected(searchResponse.getResults().get(0));
+            }
+        }
     }
 
     @Override
@@ -92,5 +102,9 @@ public class MovieListFragment extends ClickToRefreshFragmentBase{
         if(this.sortOption == sortOption) return;
         this.sortOption = sortOption;
         refresh();
+    }
+
+    public interface OnItemSelectedListener{
+        void onItemSelected(Movie movie);
     }
 }
