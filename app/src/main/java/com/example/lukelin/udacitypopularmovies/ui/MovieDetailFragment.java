@@ -30,7 +30,7 @@ import rx.Subscriber;
 public class MovieDetailFragment extends ClickToRefreshFragmentBase{
     private ImageView poster, favorite;
     private boolean favoriteStatus = false;
-    private TextView title, status, releaseDate, voteAverage, popularity, description;
+    private TextView title, status, releaseDate, voteAverage, popularity, description, reviewsArea;
     private Movie movie;
     private RecyclerView videos, reviews;
 
@@ -44,6 +44,7 @@ public class MovieDetailFragment extends ClickToRefreshFragmentBase{
         voteAverage = (TextView) spView.findViewById(R.id.fragment_movie_detail_vote_average);
         popularity = (TextView) spView.findViewById(R.id.fragment_movie_detail_popularity);
         description = (TextView) spView.findViewById(R.id.fragment_movie_detail_description);
+        reviewsArea = (TextView) spView.findViewById(R.id.fragment_movie_detail_reviews_area);
         videos = (RecyclerView) spView.findViewById(R.id.fragment_movie_detail_videos);
         reviews = (RecyclerView) spView.findViewById(R.id.fragment_movie_detail_reviews);
     }
@@ -75,6 +76,7 @@ public class MovieDetailFragment extends ClickToRefreshFragmentBase{
                     public void onResponse(Call<GetReviewResponse> call, Response<GetReviewResponse> response) {
                         reviews.setLayoutManager(new LinearLayoutManager(getContext()));
                         reviews.setAdapter(new ReviewListAdapter(getContext(), response.body().getResults()));
+                        reviewsArea.setVisibility(response.body().getResults().size() == 0 ? View.GONE : View.VISIBLE);
                     }
 
                     @Override

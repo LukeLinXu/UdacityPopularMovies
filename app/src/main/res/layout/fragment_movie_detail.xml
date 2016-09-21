@@ -76,6 +76,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
 
+        <TextView
+            android:id="@+id/fragment_movie_detail_reviews_area"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/reviews_area"
+            android:textSize="20sp"
+            android:textStyle="italic"
+            android:visibility="gone"/>
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/fragment_movie_detail_reviews"
             android:layout_width="match_parent"
