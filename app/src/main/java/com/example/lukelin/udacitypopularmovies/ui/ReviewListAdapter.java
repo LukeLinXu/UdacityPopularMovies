@@ -2,7 +2,6 @@ package com.example.lukelin.udacitypopularmovies.ui;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +18,6 @@ import java.util.List;
  */
 public class ReviewListAdapter extends RecyclerView.Adapter<ReviewListAdapter.ViewHolder> {
 
-    private final TypedValue mTypedValue = new TypedValue();
-    private int mBackground;
     private List<Review> mValues;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -39,8 +36,6 @@ public class ReviewListAdapter extends RecyclerView.Adapter<ReviewListAdapter.Vi
     }
 
     public ReviewListAdapter(Context context, List<Review> items) {
-        context.getTheme().resolveAttribute(R.attr.selectableItemBackground, mTypedValue, true);
-        mBackground = mTypedValue.resourceId;
         mValues = items;
     }
 
@@ -48,7 +43,6 @@ public class ReviewListAdapter extends RecyclerView.Adapter<ReviewListAdapter.Vi
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.review_list_item, parent, false);
-        view.setBackgroundResource(mBackground);
         return new ViewHolder(view);
     }
 
